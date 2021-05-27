@@ -1,4 +1,4 @@
-package sec01.ex01.practice;
+package sec01.ex02;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,19 +13,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-
-
-
-
-
 /**
- * Servlet implementation class MemberServlet2
+ * Servlet implementation class MemberServlet
  */
-//@WebServlet("/member2")
-public class MemberServlet2 extends HttpServlet {
+@WebServlet("/member")
+public class MemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-  
+
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
 	}
@@ -40,19 +35,16 @@ public class MemberServlet2 extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response) throws ServletException, IOException {
-
-		request.setCharacterEncoding("utf-8");
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		MemberDAO dao = new MemberDAO();
 		List<MemberVO> list = dao.listMembers();
 		
 		out.print("<html><body>");
-		out.print("<table border='1'>");
-		out.print("<tr align='center' bgcolor='lightgreen'>");
-		out.print("<td>아이디</td><td>비밀번호</td><td>이름</td><td>이메일</td><td>가입일</td>");
-		out.print("</tr>");
+		out.print("<table border ='1'> <tr align='center' bgcolor='lightgreen'>");
+		out.print("<td>아이디</td><td>비밀번호</td><td>이름</td><td>이메일</td><td>가입일</td></tr>");
 		
 		for(int i = 0; i<list.size(); i++) {
 			MemberVO memberVO = (MemberVO) list.get(i);
@@ -62,24 +54,14 @@ public class MemberServlet2 extends HttpServlet {
 			String email = memberVO.getEmail();
 			Date joinDate = memberVO.getJoinDate();
 			
-			out.print("<tr align='center'>");
-			out.print("<td>"+id+"</td>");
-			out.print("<td>"+pwd+"</td>");
-			out.print("<td>"+name+"</td>");
-			out.print("<td>"+email+"</td>");
-			out.print("<td>"+joinDate+"</td>");
-			out.print("</tr>");
-			out.print("</table></body></html>");
-			
-			
-			
+			out.print("<tr><td>" + id + "</td><td>" +
+								   pwd + "</td><td>" + 
+								   name + "</td><td>" +
+								   email + "</td><td>" +
+								   joinDate + "</td></tr>");
 		}
+		
+		out.print("</table></body></html>");
 	}
 
-	
-	
-	
-	
-	
-	
 }
