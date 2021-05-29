@@ -35,5 +35,7 @@
 		username="c##scott"
 		password="tiger"
 		maxActive="50"
-		maxWait="-1"/>
+		maxWait="-1"		
+	/>
+
 </Context>
