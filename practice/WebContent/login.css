@@ -1,0 +1,77 @@
+
+body {
+    margin: 0;
+    background-color: rgba(231, 231, 231, 0.9);
+}
+
+.login-box {
+    width: 300px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 100px;
+    padding: 10px;
+    text-align: center;
+    border: none;
+}
+
+.login-box h1 {
+    height: 50px;
+    font-size: 70px;
+    color: #FF8200;
+    font-family: sans-serif;
+}
+
+.text-field {
+    margin : 5px 0px 1px;
+    width: 100%;
+    height: 40px;
+    
+}
+
+.submit-btn {
+    display: block;
+    margin: 10px 0;
+    width: 103%;
+    height: 45px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    background-color: #FFA01E;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color .2s;
+
+}
+.submit-btn:hover {
+    background-color: #FF8200;
+    box-shadow: 0px 0 2px 0 rgba(0,0,0,1);
+}
+
+.find-info {
+    display: flex;
+    justify-content: center;
+    margin-top: 12px;
+}
+
+.find-info .links {
+    margin-left: 10px;
+    font-size: 12px;
+    
+}
+
+.find-info .links.search {
+    border-left: 1px solid #828282;
+    padding-left: 10px;
+}
+.find-info .links a {
+    text-decoration: none;
+    color : #828282;
+    transition: color;
+}
+.find-info .links a:hover {
+    color:#14148C;
+}
+
+
+
