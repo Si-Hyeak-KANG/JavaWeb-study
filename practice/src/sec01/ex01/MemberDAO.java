@@ -29,6 +29,7 @@ public class MemberDAO {
 		}
 	}
 	
+	//회원 조회
 	public List<MemberVO> ListMembers() {
 		
 		MemberVO vo = new MemberVO();
@@ -73,7 +74,7 @@ public class MemberDAO {
 		return list;
 	}
 	
-	
+	//로그인 아이디 체크
 	public int CheckId(String id) {
 		
 		int num = 0;
@@ -109,6 +110,7 @@ public class MemberDAO {
 		
 	}
 	
+	//로그인 비밀번호 체크
 	public int CheckPwd(String pwd) {
 		
 		int num = 0;
@@ -140,9 +142,50 @@ public class MemberDAO {
 		}
 		
 		return num;
+			
+	}
+	
+	//회원가입
+	public void addMember(MemberVO memberVO) {
 		
+		try {
+			String id = memberVO.getId();
+			String pwd = memberVO.getPwd();
+			String name = memberVO.getName();
+			String email = memberVO.getEmail();
+			String gender = memberVO.getGender();
+			String position = memberVO.getPosition();
+			
+			con = dataFactory.getConnection();
+			String query = "insert into mcfc_table";
+			query += " (id,pwd,name,email,gender,position)";
+			query += " values(?,?,?,?,?,?)";
+			System.out.println("prepareStatement: " + query);
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, id);
+			pstmt.setString(2, pwd);
+			pstmt.setString(3, name);
+			pstmt.setString(4, email);
+			pstmt.setString(5, gender);
+			pstmt.setString(6, position);
+			
+			pstmt.executeUpdate();
+			pstmt.close();
+			con.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+
 		
 	}
+
+
+	
+	
+	
+	
+	
 	
 }
 	

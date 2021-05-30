@@ -45,7 +45,7 @@ public class MyLoginServlet extends HttpServlet {
 		String id = request.getParameter("id");
 		String pwd = request.getParameter("pwd");
 		
-		if(command != null || command.equals("login")) {
+		if(command != null && command.equals("login")) {
 			
 			if(dao.CheckId(id) == 0) {
 				out.print("<html><title>로그인 오류</title><body>");
