@@ -13,7 +13,7 @@ public class MemberVO {
 	private Date joinDate;
 	
 	public MemberVO() {
-		
+		System.out.println("생성자를 생성했습니다.");
 	}
 	
 	public String getId() {

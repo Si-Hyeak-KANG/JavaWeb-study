@@ -34,6 +34,13 @@ public class MyLoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response) throws ServletException, IOException {
+		doHandle(request,response);
+	}
+	
+	protected void doPost(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response) throws ServletException, IOException {
+		doHandle(request,response);
+	}
+	private void doHandle(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		
@@ -42,10 +49,12 @@ public class MyLoginServlet extends HttpServlet {
 		MemberDAO dao = new MemberDAO();
 		
 		String command = request.getParameter("command");
-		String id = request.getParameter("id");
-		String pwd = request.getParameter("pwd");
 		
-		if(command != null && command.equals("login")) {
+		
+		if(command != null && command.equals("login")) {	// 로그인할 때
+			
+			String id = request.getParameter("id");
+			String pwd = request.getParameter("pwd");
 			
 			if(dao.CheckId(id) == 0) {
 				out.print("<html><title>로그인 오류</title><body>");
@@ -65,11 +74,11 @@ public class MyLoginServlet extends HttpServlet {
 			
 			else{
 				System.out.println(id+"으로 로그인 되었습니다.");
-				response.sendRedirect("http://localhost:8091/practice/home.html");	
-
-			}
-						
-		}
-	}
+				response.sendRedirect("http://localhost:8091/practice/home.html");
+				}
+		
+		}//if
+		
+	}	
 
 }

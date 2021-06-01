@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>회원 가입</title>
+    <link rel="stylesheet" href="joinMember.css" type="text/css">
+    <script type="text/javascript">
+    	
+    	function fn_join() {
+    		
+    		var frmJoin = document.frmJoin;
+    		var id = frmJoin.id.value;
+    		var pwd = frmJoin.pwd.value;
+    		var rePwd = frmJoin.rePwd.value;
+    		var name = frmJoin.name.value;
+    		var email = frmJoin.email.value;
+
+    		if( id.length == 0 || id == "") {
+    			alert("아이디를 입력해주세요.");
+    		}else if(pwd.length == 0 || pwd == "") {
+    			alert("비밀번호를 입력해주세요.");
+    		}else if(rePwd.lendth == 0 || rePwd == "") {
+    			alert("비밀번호를 한번 더 입력해주세요.");
+    		}else if(rePwd != pwd) {
+    			alert("비밀번호와 비밀번호 재확인이 일치하지 않습니다.");
+    		}else if(name.length == 0 || name == "") {
+    			alert("이름을 입력해주세요.");
+    		}else if(email.length == 0 || email == "") {
+    			alert("이메일을 입력해주세요");
+    		}
+    		else {
+    			
+    			frmJoin.method("post");
+    			frmJoin.action("joinMember");
+    			frmJoin.submit();
+    		}
+    	}
+    	
+    </script>
+</head>
+<body>
+
+    <h1>
+        <a href="login.html">MCFC</a>
+    </h1>
+
+	
+    <div class="container">
+        <form name="frmJoin">
+
+            <h3><label >아이디</label></h3>
+            <input type="text" name="id" class="info-user" />
+
+            <h3><label>비밀번호</label></h3>
+            <input type="password" name="pwd" class="info-user" />
+
+            <h3><label>비밀번호 재확인</label></h3>
+            <input type="password" name="rePwd" class="info-user" />
+
+            <h3><label>이름</label></h3>
+            <input type="text" name="name" class="info-user" />
+
+            <h3><label>이메일</label></h3>
+            <input type="email" name="email" class="info-user" />
+  
+            <h3><label>성별</label></h3>
+            <select id="gender" name="gender">
+                <option value selected color='gray'>선택 안함</option>
+                <option value="man">남자</option>
+                <option value="woman">여자</option>
+            </select>
+
+             <h3><label>포지션</label></h3>
+            <div class="checkbox">
+                <input type="checkbox" name="position" class="position forward" value="forword">공격수
+                <input type="checkbox" name="position" class="position midfield" value="midfield">미드필더
+                <input type="checkbox" name="position" class="position defender" value="defender">수비수
+                <input type="checkbox" name="position" class="position goalkeeper" value="goalkeeper">골키퍼
+            </div>
+
+            <div>
+                <input type="button" value="가입하기" onClick="fn_join()" class="submit-btn">  
+            </div>
+		</form>
+    </div>
+    
+</body>
+</html>

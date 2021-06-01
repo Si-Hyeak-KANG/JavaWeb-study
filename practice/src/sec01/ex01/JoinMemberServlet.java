@@ -43,32 +43,29 @@ public class JoinMemberServlet extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		MemberDAO dao = new MemberDAO();
-		
-		
-		String command = request.getParameter("command");
-		
+
 		String id = request.getParameter("id");
 		String pwd = request.getParameter("pwd");
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
-		String gender = request.getParameter("gender");
-		String position = request.getParameter("position");
+		//String gender = request.getParameter("gender");
+		//String position = request.getParameter("position");
 		
-		if(command != null && command.equals("addMember")) {
-			
-			MemberVO vo = new MemberVO();
-			
-			vo.setId(id);
-			vo.setPwd(pwd);
-			vo.setName(name);
-			vo.setEmail(email);
-			vo.setGender(gender);
-			vo.setPosition(position);
-			
-			dao.addMember(vo);
-			System.out.print(name + "님께서 회원 가입했습니다.");
-			out.print("<html><body>안녕</body></html>");
-		}
+		
+		MemberVO vo = new MemberVO();
+		
+		vo.setId(id);
+		vo.setPwd(pwd);
+		vo.setName(name);
+		vo.setEmail(email);
+		//vo.setGender(gender);
+		//vo.setPosition(position);
+		
+		dao.addMember(vo);
+		
+		System.out.print(name + "님께서 회원 가입했습니다.");
+		response.sendRedirect("http://localhost:8091/practice/login.html");
+	
 		
 		
 	}

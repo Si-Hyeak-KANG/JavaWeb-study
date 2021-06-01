@@ -1,9 +1,9 @@
 package sec01.ex01;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,17 +32,17 @@ public class MemberDAO {
 	//회원 조회
 	public List<MemberVO> ListMembers() {
 		
-		MemberVO vo = new MemberVO();
-		List<MemberVO> list = new ArrayList<>();
+		
+		List<MemberVO> list = new ArrayList<MemberVO>();
 		
 		try {
 			con = dataFactory.getConnection();
-			String query = "select * from mcfc_table";
+			String query = "select * from mcfc_table ";
 			System.out.println("prepareStatement: " + query);
 			pstmt = con.prepareStatement(query);
-			ResultSet rs = pstmt.executeQuery();
+			ResultSet rs = pstmt.executeQuery(query);
 			
-			while(rs.next()) {
+			while (rs.next()) {
 				
 				String id = rs.getString("id");
 				String pwd = rs.getString("pwd");
@@ -50,21 +50,22 @@ public class MemberDAO {
 				String email = rs.getString("email");
 				String gender = rs.getString("gender");
 				String position = rs.getString("position");
+				Date joinDate = rs.getDate("joinDate");
 				
-				
-				
+				MemberVO vo = new MemberVO();
 				vo.setId(id);
 				vo.setPwd(pwd);
 				vo.setName(name);
 				vo.setEmail(email);
 				vo.setGender(gender);
 				vo.setPosition(position);
+				vo.setJoinDate(joinDate);
 				
 				list.add(vo);
 			}
 		
-			pstmt.close();
 			rs.close();
+			pstmt.close();
 			con.close();
 		
 		}catch(Exception e) {
@@ -84,7 +85,7 @@ public class MemberDAO {
 			String query = "select id from mcfc_table";
 			System.out.println("prepareStatement: " + query);
 			pstmt = con.prepareStatement(query);
-			ResultSet rs = pstmt.executeQuery();
+			ResultSet rs = pstmt.executeQuery(query);
 			
 			while(rs.next()) {
 				
@@ -97,9 +98,10 @@ public class MemberDAO {
 				
 			}
 			
+			rs.close();
 			pstmt.close();
 			con.close();
-			rs.close();
+			
 			
 		} catch(Exception e){
 			e.printStackTrace();
@@ -120,7 +122,7 @@ public class MemberDAO {
 			String query = "select pwd from mcfc_table";
 			System.out.println("prepareStatement: " + query);
 			pstmt = con.prepareStatement(query);
-			ResultSet rs = pstmt.executeQuery();
+			ResultSet rs = pstmt.executeQuery(query);
 			
 			while(rs.next()) {
 				
@@ -133,9 +135,10 @@ public class MemberDAO {
 				
 			}
 			
+			rs.close();
 			pstmt.close();
 			con.close();
-			rs.close();
+			
 			
 		} catch(Exception e){
 			e.printStackTrace();
@@ -153,13 +156,13 @@ public class MemberDAO {
 			String pwd = memberVO.getPwd();
 			String name = memberVO.getName();
 			String email = memberVO.getEmail();
-			String gender = memberVO.getGender();
-			String position = memberVO.getPosition();
+			//String gender = memberVO.getGender();
+			//String position = memberVO.getPosition();
 			
 			con = dataFactory.getConnection();
 			String query = "insert into mcfc_table";
-			query += " (id,pwd,name,email,gender,position)";
-			query += " values(?,?,?,?,?,?)";
+			query += " (id,pwd,name,email)";
+			query += " values(?,?,?,?)";
 			System.out.println("prepareStatement: " + query);
 			pstmt = con.prepareStatement(query);
 			
@@ -167,24 +170,39 @@ public class MemberDAO {
 			pstmt.setString(2, pwd);
 			pstmt.setString(3, name);
 			pstmt.setString(4, email);
-			pstmt.setString(5, gender);
-			pstmt.setString(6, position);
 			
+
 			pstmt.executeUpdate();
 			pstmt.close();
-			con.close();
+
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 
 		
 	}
+	
+	//회원 삭제
+	public void delMember(String id) {
+		
+		try {
+			con = dataFactory.getConnection();
+			String query = "delete from mcfc_table" + " where id =?";
+			System.out.println("prepareStatement: " + query);
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, id);
+			
+			pstmt.executeUpdate();
+			pstmt.close();
+			
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 
 
-	
-	
-	
-	
 	
 	
 }

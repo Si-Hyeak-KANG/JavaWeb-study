@@ -7,6 +7,13 @@
     <title>MCFC</title>
 </head>
 <body>
-    <a href="#">회원 정보 조회</a>
+	
+	<form name="frmList" method="post" action="http://localhost:8091/practice/list">
+	
+		<label for="Member">회원 정보 조회</label>
+		<input type="submit" value="조회">
+		<input type="hidden" name ="command" value="listMember">
+	</form>
+    
 </body>
 </html>
