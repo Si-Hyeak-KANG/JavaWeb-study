@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class SecondServlet
  */
-@WebServlet(name = "SecondServlet2", urlPatterns = { "/second" })
+//@WebServlet(name = "SecondServlet2", urlPatterns = { "/second" })
 public class SecondServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
