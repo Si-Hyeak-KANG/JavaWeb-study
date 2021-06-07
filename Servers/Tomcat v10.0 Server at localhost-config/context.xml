@@ -23,10 +23,10 @@
     <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
 
     <!-- Uncomment this to enable session persistence across Tomcat restarts -->
-    <!--
-    <Manager pathname="SESSIONS.ser" />
-    -->
-	<Resource
+
+    <Manager pathname="" />
+    	
+    <Resource
 		name="jdbc/oracle"
 		auth="Container"
 		type="javax.sql.DataSource"
