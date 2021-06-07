@@ -109,5 +109,23 @@ public class MemberDAO {
 			e.printStackTrace();
 		}
 	}
+
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
