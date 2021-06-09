@@ -1,5 +1,6 @@
 package sec04.ex02;
 
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -18,10 +19,9 @@ import jakarta.servlet.http.HttpSession;
  */
 @WebServlet("/pro10Logout")
 public class LogoutTest extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	
 	ServletContext context;
-  
+	
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doHandle(request,response);
 	}
@@ -30,29 +30,25 @@ public class LogoutTest extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doHandle(request, response);
+		doHandle(request,response);
 	}
 	
-	private void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
-		
-		context=getServletContext();
+		context = getServletContext();
 		PrintWriter out = response.getWriter();
-		
 		HttpSession session = request.getSession();
 		String user_id = request.getParameter("user_id");
 		
 		session.invalidate();
 		
-		List user_list = (ArrayList)context.getAttribute("user_list");
-		
+		List user_list = (ArrayList) context.getAttribute("user_list");
 		user_list.remove(user_id);
 		context.removeAttribute("user_list");
-		context.setAttribute("user_list",user_list);
-		out.println("<br>로그아웃했습니다.");
+		context.setAttribute("user_list", user_list);
+		out.println("<br>로그아웃 했습니다.");
 	}
 
 }

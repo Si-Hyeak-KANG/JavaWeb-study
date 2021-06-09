@@ -13,30 +13,28 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-
+/**
+ * Servlet implementation class LoginTest
+ */
 @WebServlet("/pro10Login3")
-public class LoginTest3 extends HttpServlet {
+public class LoginTest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	ServletContext context = null;
-	List user_list = new ArrayList(); //로그인한 접속자 ID를 저장하는 ArrayList
-  
+	List user_list = new ArrayList();
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		
 		context = getServletContext();
-		
 		PrintWriter out = response.getWriter();
-		
 		HttpSession session = request.getSession();
 		
 		String user_id = request.getParameter("user_id");
 		String user_pw = request.getParameter("user_pw");
 		
-		LoginImpl loginUser = new LoginImpl(user_id,user_pw);
-		
+		LoginImpl loginUser = new LoginImpl(user_id, user_pw);
 		if(session.isNew()) {
 			session.setAttribute("loginUser", loginUser);
 			user_list.add(user_id);
@@ -48,15 +46,13 @@ public class LoginTest3 extends HttpServlet {
 		out.println("총 접속자수는 " + LoginImpl.total_user + "<br><br>");
 		out.println("접속 아이디: <br>");
 		
-		List list = (ArrayList)context.getAttribute("user_List");
-		
-		for(int i=0; i < list.size(); i++) {
-			out.println(list.get(i)+"<br>");
+		List list = (ArrayList) context.getAttribute("user_list");
+		for(int i=0; i<list.size();i++) {
+			out.println(list.get(i) + "<br>");
 		}
-		
-		out.println("<a href='pro10Logout?user_id="+user_id+"'>로그아웃</a>");
+		out.println("<a href='pro10Logout?user_id="+ user_id + "'>로그아웃</a>");
 		out.println("</body></html>");
-		
+	
 	}
 
 }

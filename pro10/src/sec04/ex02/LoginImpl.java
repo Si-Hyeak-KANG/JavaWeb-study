@@ -11,15 +11,15 @@ import jakarta.servlet.http.HttpSessionListener;
 @WebListener
 public class LoginImpl implements HttpSessionListener {
 
-    String user_id;
-    String user_pw;
-    static int total_user=0;
+	String user_id;
+	String user_pw;
+	static int total_user = 0;
 	
     public LoginImpl() {
-    	
+        // TODO Auto-generated constructor stub
     }
     
-    public LoginImpl(String user_id,String user_pw) {
+    public LoginImpl(String user_id, String user_pw) {
     	this.user_id = user_id;
     	this.user_pw = user_pw;
     }
@@ -27,16 +27,14 @@ public class LoginImpl implements HttpSessionListener {
 	@Override
 	public void sessionCreated(HttpSessionEvent se) {
 		System.out.println("技记 积己");
-		total_user++;
+		++total_user;
 	}
-	
 
 	@Override
 	public void sessionDestroyed(HttpSessionEvent se) {
 		System.out.println("技记 家戈");
 		--total_user;
-		
 	}
-	
     
+	
 }
