@@ -1,8 +1,8 @@
-package pra08.ex01;
+package pra08.ex04;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -10,21 +10,20 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * redirect 복습
- * first Servlet에서 요청을 받으면 second Servlet 실행
+ * dispatch를 이용한 포워드
  * 
- * 데이터 전달
+ * 클라이언트의 웹 브라우저를 거치지 않고 바로 서버에서 포워딩
  */
-@WebServlet("/pra08First")
-public class FirstServlet extends HttpServlet {
+@WebServlet("/pra08First4")
+public class FirstServlet4 extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
-		PrintWriter out = response.getWriter();
 		
-		response.sendRedirect("pra08Second?name=lee");
-		//sendRedirect() 메서드를 이용해 웹브라우저에게 다른 서블릿 second로 재요청
-	} 
+		RequestDispatcher dispatch = request.getRequestDispatcher("pra08Second4?name=lee");
+		dispatch.forward(request,response);
+	}
 
 }

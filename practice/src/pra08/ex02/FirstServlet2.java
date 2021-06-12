@@ -1,4 +1,4 @@
-package pra08.ex01;
+package pra08.ex02;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,23 +10,17 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class SecondServlet
+ * refresh를 이용한 포워딩 실습
  */
-@WebServlet("/pra08Second")
-public class SecondServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
+@WebServlet("/pra08First2")
+public class FirstServlet2 extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		String name = request.getParameter("name");
 		
-		out.println("<html><body>");
-		out.println("sendRedirect를 이용한 redirect 실습입니다.");
-		out.println("이름 : " +name);
-		out.println("</body></html>");
+		response.addHeader("Refresh","1;url=pra08Second2"); //웹 브라우저에 1초 후 서블릿 second로 재요청
 	}
 
 }

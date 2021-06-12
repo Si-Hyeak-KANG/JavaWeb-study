@@ -1,4 +1,4 @@
-package pra08.ex01;
+package pra08.ex03;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,23 +10,21 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class SecondServlet
+ *  location을 이용한 포워딩 실습
  */
-@WebServlet("/pra08Second")
-public class SecondServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
+@WebServlet("/pra08First3")
+public class FirstServlet3 extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		String name = request.getParameter("name");
 		
-		out.println("<html><body>");
-		out.println("sendRedirect를 이용한 redirect 실습입니다.");
-		out.println("이름 : " +name);
-		out.println("</body></html>");
+		out.println("<html><script type='text/javascript'>");
+		out.println("location.href='pra08Second3'");
+		out.println("</script></html>");
+		
+	
 	}
 
 }

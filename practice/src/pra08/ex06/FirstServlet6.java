@@ -1,8 +1,9 @@
-package pra08.ex01;
+package pra08.ex06;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -10,23 +11,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class SecondServlet
+ * Servlet implementation class FirstServlet6
  */
-@WebServlet("/pra08Second")
-public class SecondServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
+@WebServlet("/pra08First6")
+public class FirstServlet6 extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
-		PrintWriter out = response.getWriter();
-		String name = request.getParameter("name");
-		
-		out.println("<html><body>");
-		out.println("sendRedirect를 이용한 redirect 실습입니다.");
-		out.println("이름 : " +name);
-		out.println("</body></html>");
+		request.setAttribute("address", "제주 제주시");
+		RequestDispatcher dispatch = request.getRequestDispatcher("pra08Second6");
+		dispatch.forward(request, response);
 	}
 
 }
