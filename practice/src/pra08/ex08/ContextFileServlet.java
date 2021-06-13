@@ -34,6 +34,7 @@ public class ContextFileServlet extends HttpServlet {
 		InputStream is = context.getResourceAsStream("/WEB-INF/bin/init.txt");  //해당 위치의 파일을 읽어 들임.
 		BufferedReader buffer = new BufferedReader(new InputStreamReader(is));
 		
+		
 		String menu = null;
 		String menu_member = null;
 		String menu_order = null;
