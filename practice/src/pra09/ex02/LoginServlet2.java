@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class LoginServlet2
  */
-@WebServlet("/pra09login2")
+//@WebServlet("/pra09login2")
 public class LoginServlet2 extends HttpServlet {
 
 	public void init(ServletConfig config) throws ServletException {
