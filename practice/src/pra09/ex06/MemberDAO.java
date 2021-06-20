@@ -44,10 +44,8 @@ public class MemberDAO {
 			pstmt.setString(1, id);
 			pstmt.setString(2, pwd);
 			
-			ResultSet rs = pstmt.executeQuery(query);
+			ResultSet rs = pstmt.executeQuery();
 			rs.next(); // 커서를 첫 번째 레코드로 위치
-			
-			
 			result = Boolean.parseBoolean(rs.getString("result"));
 			
 			System.out.println("result = " + result);
