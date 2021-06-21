@@ -22,7 +22,7 @@ public class LoginImpl implements HttpSessionBindingListener {
 	public void valueBound(HttpSessionBindingEvent event) {	// 세션에 저장 시 접속자수를 증가
 
 		System.out.println("사용자 접속");
-		++total_user;
+		total_user++;
 	}
 
 	@Override
