@@ -49,7 +49,7 @@
 
 </style>
 <meta charset="UTF-8">
-<title>이미지 리스트 창</title>
+<title>이미지 리스트 창</title> 
 </head>
 <body>
 	<ul class="list_type">
