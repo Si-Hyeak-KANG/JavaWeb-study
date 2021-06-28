@@ -15,7 +15,7 @@
 <%
 	if(name!=null || name.length()!=0) {
 %>
-		<h1><%=name %>, <%=age %> </h1>
+		<h1><%=name %>, <%=age %> </h1> // 표현식
 <%
 	}else {
 %>
@@ -27,7 +27,7 @@
 <%
 	if(name!=null||name.length()!=0) {
 %>
-	<h1><% out.println(name + " , " + age); %></h1>
+	<h1><% out.println(name + " , " + age); %></h1>  // 내장객체 out
 <%
 	} else {
 %>
