@@ -5,14 +5,50 @@
 	request.setCharacterEncoding("utf-8");
 %>
 
+<jsp:useBean id="m" class="sec01.ex01.MemberBean" scope="page"/>
+
+<jsp:setProperty name="m" property="*"/>
+
+<%-- 
+<jsp:setProperty name="m" property="id"/>
+<jsp:setProperty name="m" property="pwd"/>
+<jsp:setProperty name="m" property="name"/>
+<jsp:setProperty name="m" property="email"/>
+ --%>
+ 
+<%-- 
+<jsp:setProperty name="m" property="id" param="id" />
+<jsp:setProperty name="m" property="pwd" param="pwd" />
+<jsp:setProperty name="m" property="name" param="email" />
+<jsp:setProperty name="m" property="email" param="email" />
+--%>
+
+<%--
+<jsp:setProperty name="m" property="id" value='<%=request.getParameter("id") %>' />
+<jsp:setProperty name="m" property="pwd" value='<%=request.getParameter("pwd") %>' />
+<jsp:setProperty name="m" property="name" value='<%=request.getParameter("name") %>' />
+<jsp:setProperty name="m" property="email" value='<%=request.getParameter("email") %>' />  
+--%>
+
 <%
-	String id= request.getParameter("id");
+
+//액션 태그로 대체 setProperty 
+/*
+	String id = request.getParameter("id");
 	String pwd = request.getParameter("pwd");
 	String name = request.getParameter("name");
 	String email = request.getParameter("email");
+*/
+
+	// MemberBean m = new MemberBean(id,pwd,name,email); //<jsp:useBean />으로 대체
 	
-	MemberBean m = new MemberBean(id,pwd,name,email);
-	
+/*
+	m.setId(id);
+	m.setPwd(pwd);
+	m.setName(name);
+	m.setEmail(email);
+*/  
+
 	MemberDAO dao = new MemberDAO();
 	dao.addMember(m);
 	List membersList = dao.listMembers();
