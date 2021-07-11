@@ -32,6 +32,7 @@
 				<td width="400">
 					<input type="submit" value="가입하기">
 					<input type="reset" value="다시 입력>">
+					<input type="hidden" name="command" value="addMember" />
 				</td>
 			</tr>
 		</table>

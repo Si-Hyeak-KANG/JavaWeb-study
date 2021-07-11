@@ -11,6 +11,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import sec01.ex02.MemberVO;
+
 public class MemberDAO {
 	
 	private Connection con;
@@ -64,6 +66,56 @@ public class MemberDAO {
 			pstmt.close();
 			con.close();
 
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	public List ListMembers(MemberBean memberBean) {
+		
+		List list = new ArrayList();
+		String _name = memberBean.getName();
+		try {
+			con = dataFactory.getConnection();
+			String query = "select * from t_member";
+			
+			if(_name!=null || _name.length()!=0) {
+				
+				query += " where name=?";
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, _name);
+				
+			}else {
+				
+				pstmt = con.prepareStatement(query);
+			}
+			
+			System.out.println("prepareStatement: " + query);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				String id = rs.getString("id");
+				String pwd = rs.getString("pwd");
+				String name = rs.getString("name");
+				String email = rs.getString("email");
+				Date joinDate = rs.getDate("joinDate");
+				
+				
+				memberBean.setId(id);
+				memberBean.setPwd(pwd);
+				memberBean.setName(name);
+				memberBean.setEmail(email);
+				memberBean.setJoinDate(joinDate);
+				
+				list.add(memberBean);
+				
+				rs.close();
+				pstmt.close();
+				con.close();
+			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

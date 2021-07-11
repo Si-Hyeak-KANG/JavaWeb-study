@@ -3,8 +3,8 @@
     pageEncoding="UTF-8"
     isELIgnored="false"
     %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%
 	request.setCharacterEncoding("utf-8");
 %>
@@ -12,14 +12,31 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<%
+	List membersList = null;
+	MemberDAO memberDAO = new MemberDAO();
+	String command=(String)request.getParameter("command");
+
+	if(command.equals("addMember")){
+		
+%>
 <jsp:useBean id="m" class="sec02.ex01.MemberBean"/>
 <jsp:setProperty name="m" property="*"/>
 <%
-	MemberDAO memberDAO = new MemberDAO();
-	memberDAO.addMember(m);
-	List membersList = memberDAO.listMembers();
+		memberDAO.addMember(m);
+		membersList = memberDAO.listMembers();	
+	
+	} else if(command.equals("search")) {
+		String name = request.getParameter("name");
+		MemberBean memberBean = new MemberBean();
+		memberBean.setName(name);
+		membersList = memberDAO.ListMembers(memberBean);
+		
+	}
+
 	request.setAttribute("membersList",membersList);
-%>
+%>	
+
 </head>
 <body>
 	<!-- member_action.jsp는 화면 기능을 수행하지 않고 데이터베이스 연동 기능만 수행 -->
