@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원 정보 조회</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+	function fn_process() {
+		$.ajax({
+			type:"post",
+			async:false,
+			url:"http://localhost:8091/pro16/mem2",
+			dataType:"xml",
+			success:function (info,textStatus) {
+				$(info).find("member").each(function(){
+					var id=$(this).find("id").text();
+					var pwd=$(this).find("pwd").text();
+					var name=$(this).find("name").text();
+ 					$("#memberInfo").append(
+ 	
+ 							"<p>"+ id +" , "+ pwd +" , "+ name + "</p>"
+ 							
+ 							);
+				});
+			},
+			error:function(data,textStatus) {
+				alert("에러가 발생했습니다.");
+			},
+			complete:function(data,textStatus) {
+				//alert("작업을 완료했습니다.");
+			}
+			
+		});
+	}
+</script>
+
+</head>
+<body>
+	<div id="memberInfo"></div>
+	<input type="button" value="회원정보 요청" onClick="fn_process()">
+</body>
+</html>
