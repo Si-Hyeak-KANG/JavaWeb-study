@@ -23,10 +23,10 @@
 			$("#output").html(output);
 		});
 	});
-</script>
+</script> 
 </head>
 <body>
-	<a id="checkJson"  style="cursor:pointer">출력</a><br><br>
+	<a id="checkJson" style="cursor:pointer">출력</a><br><br>
 	<div id="output"></div>
 </body>
 </html>
