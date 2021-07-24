@@ -65,8 +65,30 @@ public class MemberDAO {
 		return list;
 	}
 	
-	public void addMember() {
+	public void addMember(MemberVO memberVO) {
 		
+		try {
+			String id = memberVO.getId();
+			String pwd = memberVO.getPwd();
+			String name = memberVO.getName();
+			String email = memberVO.getEmail();
+			
+			conn = dataFactory.getConnection();
+			String query = "insert into t_member(id,pwd,name,email)" + " values(?,?,?,?)";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pwd);
+			pstmt.setString(3, name);
+			pstmt.setString(4, email);
+			
+			pstmt.executeUpdate();
+			
+			pstmt.close();
+			conn.close();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }
