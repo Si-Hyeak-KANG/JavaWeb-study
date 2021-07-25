@@ -1,10 +1,10 @@
-package sec02.ex01;
-
+package sec02.ex02;
 
 import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,13 +12,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 /**
  * Servlet implementation class MemberController
  */
-//@WebServlet(name = "MemberController2", urlPatterns = { "/member/*" })
+@WebServlet(name = "MemberController3", urlPatterns = { "/member/*" })
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	MemberDAO memberDAO;
 	/**
 	 * @see Servlet#init(ServletConfig)
@@ -46,37 +47,62 @@ public class MemberController extends HttpServlet {
 		String nextPage = null;
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
-		String action = request.getPathInfo(); // URL에서 요청명을 가져옴
-		System.out.println("action:" + action);
+		String action = request.getPathInfo();
+		System.out.println("action: " + action);
 		
-		if(action == null || action.equals("/listMembers.do")) {  // 최초 요청이거나 action 값이 /listMembers.do면 회원 목록 출력
+		if(action == null || action.equals("/listMembers.do")) { 
+			
 			List<MemberVO> membersList = memberDAO.listMembers();
 			request.setAttribute("membersList",membersList);
-			nextPage = "/test02/listMembers.jsp";
+			nextPage = "/test03/listMembers.jsp";
 			
-		}else if(action.equals("/addMember.do")) { // action 값이 /addMember.do면 전송된 회원 정보를 가져와서 테이블에 추가
+		} else if(action.equals("/addMember.do")) {
 			
 			String id = request.getParameter("id");
 			String pwd = request.getParameter("pwd");
 			String name = request.getParameter("name");
 			String email = request.getParameter("email");
 			
-			MemberVO memberVO = new MemberVO(id,pwd,name,email);
-			memberDAO.addMember(memberVO);
-			nextPage = "/member/listMembers.do"; // 회원 등록 후 다시 회원 목록을 출력
+			MemberVO vo = new MemberVO(id,pwd,name,email);
+			memberDAO.addMember(vo);
 			
-		}else if(action.equals("/memberForm.do")) { // action 값이 /memberForm.do면 회원 가입창을 화면에 출력
+			request.setAttribute("msg", "addMember"); // 회원 가입창으로 추가 작업 완료 메시지 전달
+			nextPage = "/member/listMembers.do";
 			
-			nextPage = "/test02/memberForm.jsp";
+		} else if(action.equals("/modMemberForm.do")) { // 회원 수정 요청 시 ID로 회원 정보를 조회한 후 수정창으로 포워딩
 			
-		} else { // 그 외 다른 action 값은 회원 목록을 출력
+			String id = request.getParameter("id");
+			MemberVO memInfo = memberDAO.findMember(id);
+			request.setAttribute("memInfo", memInfo);
+			nextPage = "/test03/modMemberForm.jsp";
+			
+		} else if(action.equals("/modMember.do")) { // 테이블의 회원 정보를 수정
+			
+			String id = request.getParameter("id");
+			String pwd = request.getParameter("pwd");
+			String name = request.getParameter("name");
+			String email = request.getParameter("email");
+			
+			MemberVO memberVO = new MemberVO(id, pwd, name, email);
+			memberDAO.modMember(memberVO);
+			request.setAttribute("msg","modified"); // 회원 목록창으로 수정 작업 완료 메시지 전달
+			nextPage = "/member/listMembers.do";
+			
+		} else if(action.equals("/delMember.do")) { // 회원 ID를 SQL문으로 전달해 테이블의 회원 정보 삭제
+			
+			String id = request.getParameter("id");
+			memberDAO.delMember(id);
+			request.setAttribute("msg","deleted"); // 회원 목록창으로 삭제 작업 완료 메시지 전달
+			nextPage = "/member/listMembers.do";
+			
+		} else {
 			List<MemberVO> membersList = memberDAO.listMembers();
-			request.setAttribute("membersList", membersList);
-			nextPage = "/test02/listMembers.jsp";
+			request.setAttribute("membersList",membersList);
+			nextPage = "/member/listMembers.do";
 		}
+		
 		RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
-		dispatch.forward(request,response);
-			
+		dispatch.forward(request, response);
 	}
 
 }
