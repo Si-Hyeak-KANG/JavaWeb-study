@@ -9,7 +9,5 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/tomcat 9.0/lib/servlet-api.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/tomcat 9.0/lib/jsp-api.jar"/>
-	<classpathentry kind="lib" path="C:/Users/kang/Downloads/commons-fileupload-1.4-bin/commons-fileupload-1.4-bin/commons-fileupload-1.4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/kang/Downloads/commons-io-2.11.0-bin/commons-io-2.11.0/commons-io-2.11.0.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
