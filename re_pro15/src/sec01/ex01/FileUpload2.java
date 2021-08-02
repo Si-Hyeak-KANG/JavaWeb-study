@@ -2,8 +2,10 @@ package sec01.ex01;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -51,6 +53,8 @@ public class FileUpload2 extends HttpServlet {
 		factory.setSizeThreshold(1024*1024);
 		
 		ServletFileUpload upload = new ServletFileUpload(factory);
+		String fileName = null;
+		List fileList = new ArrayList();
 		try {
 			//request 객체에서 매개변수를 List로 가져옴
 			List items = upload.parseRequest(request);
@@ -72,8 +76,8 @@ public class FileUpload2 extends HttpServlet {
 						if(idx == -1) {
 							idx = fileItem.getName().lastIndexOf("/");
 						}
-						String fileName = fileItem.getName().substring(idx+1);
-						
+						fileName = fileItem.getName().substring(idx+1);
+						fileList.add(fileName);
 						File uploadFile = new File(currentDirPath + "\\" + fileName);
 						fileItem.write(uploadFile);
 					
@@ -85,6 +89,10 @@ public class FileUpload2 extends HttpServlet {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+		request.setAttribute("fileList", fileList);
+		RequestDispatcher dis = request.getRequestDispatcher("test02/result.jsp");
+		dis.forward(request, response);
 	}
 
 }
