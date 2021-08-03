@@ -89,13 +89,14 @@ public class BoardController extends HttpServlet {
 				
 				//글쓰기창에서 입력된 정보를 ArticleVO객체에 설정한 후 boardService 메서드 addArticle()로 전달
 				articleVO.setParentNO(0); // 새 글의 부모 글번호를 0으로 설정
-				articleVO.setId("hong"); //새 글 작성자 ID를 hong으로 설정
+				articleVO.setId("kang"); //새 글 작성자 ID를 hong으로 설정
 				articleVO.setTitle(title);
 				articleVO.setContent(content);
 				articleVO.setImageFileName(imageFileName);
 				boardService.addArticle(articleVO);
 				
-				nextPage="/board02/listArticles.jsp";
+				System.out.println("새 글이 추가되었습니다. 다시 게시판으로 이동합니다.");
+				nextPage="/board/listArticles.do";
 			}
 			
 			RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
