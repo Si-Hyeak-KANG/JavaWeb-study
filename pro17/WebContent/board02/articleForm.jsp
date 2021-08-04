@@ -1,30 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    isELIgnored="false"%>
+    isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 	request.setCharacterEncoding("utf-8");
 %>
-
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>글쓰기창</title>
-<script src="http:code.jquery.com/jquery-latest.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
+
 	function readURL(input) {
 		
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
 			reader.onload = function (e) {
 				$('#preview').attr('src', e.target.result);
-			}
-			
-			reader.readAsDataURL(input.files[0]);
-			
+			}	
+			reader.readAsDataURL(input.files[0]);	
 		}
 	}
 	
@@ -57,12 +56,12 @@
 		</tr>
 		
 		<tr>
-			<td align="right">이미지파일 첨부</td>
+			<td align="right">이미지파일 첨부: </td>
 			<td>
 				<input type="file" name="imageFileName" onChange="readURL(this);" />
 			</td>
 			<td>
-				<img id="preview" src="#" width="200"  height="200" />
+				<img id="preview" src="#" width=200  height=200 />
 			</td>
 		</tr>
 		
