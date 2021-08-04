@@ -1,7 +1,8 @@
-package sec03.brd02;
+package sec03.brd03;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +12,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,11 +20,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.FileUtils;
 
 /**
  * Servlet implementation class BoardController
  */
-//@WebServlet(name = "BoardController2", urlPatterns = { "/board/*" })
+@WebServlet(name = "BoardController3", urlPatterns = { "/board/*" })
 public class BoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static String ARTICLE_IMAGE_REPO="C:\\article_image"; //글에 첨부한 이미지 저장 위치를 상수로 선언
@@ -79,24 +82,42 @@ public class BoardController extends HttpServlet {
 				nextPage = "/board02/articleForm.jsp";
 			}
 			else if(action.equals("/addArticle.do")) {
-			// action 값 /addArticle.do 요청 시 새 글 추가 작업 수행
-				Map<String,String> articleMap = upload(request,response); //파일 업로드 기능을 사용하기 위해 upload()로 요청을 전달
 				
-				//articleMap에 저장된 글 정보를 다시 가져옴
+				int articleNO = 0;
+				Map<String, String> articleMap = upload(request,response);
 				String title = articleMap.get("title");
 				String content = articleMap.get("content");
 				String imageFileName = articleMap.get("imageFileName");
 				
-				//글쓰기창에서 입력된 정보를 ArticleVO객체에 설정한 후 boardService 메서드 addArticle()로 전달
-				articleVO.setParentNO(0); // 새 글의 부모 글번호를 0으로 설정
-				articleVO.setId("kang"); //새 글 작성자 ID를 hong으로 설정
+				articleVO.setParentNO(0);
+				articleVO.setId("kang");
 				articleVO.setTitle(title);
 				articleVO.setContent(content);
 				articleVO.setImageFileName(imageFileName);
-				boardService.addArticle(articleVO);
+				articleNO = boardService.addArticle(articleVO); //테이블에 새 글을 추가한 후 새 글에 대한 글번호를 가져옴.
 				
-				System.out.println("새 글이 추가되었습니다. 다시 게시판으로 이동합니다.");
-				nextPage="/board/listArticles.do";
+				if (imageFileName != null && imageFileName.length() != 0) {
+					
+					//temp 폴더에 임시로 업로드된 파일 객체를 생성
+					File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + imageFileName);
+					
+					//CURR_IMAGE_REPO_PATH의 경로 하위에 글 번호로 폴더 생성
+					File destDir = new File(ARTICLE_IMAGE_REPO + "\\" + articleNO);
+					destDir.mkdirs();
+					
+					//temp 폴더의 파일을 글 번호를 이름으로 하는 폴더로 이동시킴
+					FileUtils.moveFileToDirectory(srcFile, destDir, true);
+				}
+				
+				PrintWriter pw = response.getWriter();
+				pw.print("<script>" + " alert('새 글을 추가했습니다.');"
+									+ " location.href='"
+									+ request.getContextPath()
+									+ "/board/listArticles.do';"
+						+"</script>");
+				
+				return;
+
 			}
 			
 			RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
@@ -152,7 +173,7 @@ public class BoardController extends HttpServlet {
 						// 업로드된 파일의 파일 이름을 Map에("imageFileName","업로드파일이름")로 저장
 						articleMap.put(fileItem.getFieldName(), fileName);
 						
-						File uploadFile = new File(currentDirPath + "\\" + fileName);
+						File uploadFile = new File(currentDirPath + "\\temp\\" + fileName);
 						fileItem.write(uploadFile);
 					}
 				}
