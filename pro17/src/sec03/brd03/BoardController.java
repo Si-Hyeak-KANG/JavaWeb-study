@@ -23,9 +23,9 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FileUtils;
 
 /**
- * Servlet implementation class BoardController
+ * 게시판 새 글 작성시 중복 이미지 처리 기능 구현
  */
-@WebServlet(name = "BoardController3", urlPatterns = { "/board/*" })
+//@WebServlet(name = "BoardController3", urlPatterns = { "/board/*" })
 public class BoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static String ARTICLE_IMAGE_REPO="C:\\article_image"; //글에 첨부한 이미지 저장 위치를 상수로 선언
