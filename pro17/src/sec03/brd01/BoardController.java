@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class BoardController
+ * 게시판 전체 조회 기능 구현
  */
 //@WebServlet("/board/*")
 public class BoardController extends HttpServlet {
