@@ -20,7 +20,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
- * Servlet implementation class BoardController
+ * 게시판 새 글 작성 기능 구현
  */
 //@WebServlet(name = "BoardController2", urlPatterns = { "/board/*" })
 public class BoardController extends HttpServlet {
