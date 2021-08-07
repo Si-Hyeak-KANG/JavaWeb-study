@@ -1,6 +1,6 @@
-package sec03.brd03;
+package sec03.brd04;
 
-import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.sql.Date;
 
@@ -16,12 +16,12 @@ public class ArticleVO {
 	private Date writeDate;
 	
 	public ArticleVO() {
-		System.out.println("VO 생성");
+		System.out.println("vo생성");
 	}
 
 	public ArticleVO(int level, int articleNO, int parentNO, String title, String content, String imageFileName,
 			String id) {
-
+		super();
 		this.level = level;
 		this.articleNO = articleNO;
 		this.parentNO = parentNO;
@@ -72,18 +72,27 @@ public class ArticleVO {
 	}
 
 	public String getImageFileName() {
+		
+		try {
+		
+			if (imageFileName != null && imageFileName.length() != 0) {
+				imageFileName = URLDecoder.decode(imageFileName,"UTF-8");
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 		return imageFileName;
 	}
 
 	public void setImageFileName(String imageFileName) {
-		//특수문자 인코딩
+		
 		try {
-			this.imageFileName = imageFileName;
-			URLEncoder.encode(imageFileName,"UTF-8");
+			if (imageFileName != null && imageFileName.length() != 0) {
+				this.imageFileName = URLEncoder.encode(imageFileName, "UTF-8");
+			}
 			
-			
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
+		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		
@@ -106,6 +115,8 @@ public class ArticleVO {
 	}
 	
 	
-
+	
+	
+	
 	
 }
