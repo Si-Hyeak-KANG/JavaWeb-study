@@ -5,28 +5,25 @@ import java.util.List;
 
 
 public class BoardService {
+	BoardDAO boardDAO;
 
-	BoardDAO boardDAO = new BoardDAO();
-	
+	public BoardService() {
+		boardDAO = new BoardDAO();
+	}
+
 	public List<ArticleVO> listArticles() {
-		
 		List<ArticleVO> articlesList = boardDAO.selectAllArticles();
 		return articlesList;
 	}
-	
-	public int addArticle(ArticleVO articleVO) {
-		
-		return boardDAO.insertNewArticle(articleVO);
-	
+
+	public int addArticle(ArticleVO article) {
+		return boardDAO.insertNewArticle(article);
 	}
-	
+
 	public ArticleVO viewArticle(int articleNO) {
-		
 		ArticleVO article = null;
 		article = boardDAO.selectArticle(articleNO);
 		return article;
 	}
-	
-	
-	
+
 }
