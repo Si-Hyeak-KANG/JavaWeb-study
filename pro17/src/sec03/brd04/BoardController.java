@@ -28,7 +28,7 @@ import org.apache.commons.io.FileUtils;
 /**
  * Servlet implementation class BoardController
  */
-@WebServlet(name = "BoardController4", urlPatterns = { "/board/*" })
+//@WebServlet(name = "BoardController4", urlPatterns = { "/board/*" })
 public class BoardController extends HttpServlet {
 	private static String ARTICLE_IMAGE_REPO = "C:\\article_image";
 	BoardService boardService;
