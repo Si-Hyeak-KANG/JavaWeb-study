@@ -55,7 +55,7 @@ public class FileDownload2 extends HttpServlet {
 			int count = in.read(buffer);
 			if(count==-1)
 				break;
-			out.write(buffer,0,count);
+			out.write(buffer,0,count); //buffer[0]부터 count만큼 출력
 		}
 		in.close();
 		out.close();
