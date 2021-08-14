@@ -21,7 +21,6 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FileUtils;
 
-import sec03.brd02.BoardService;
 
 /**
  * Servlet implementation class BoardController
@@ -81,6 +80,7 @@ public class BoardController extends HttpServlet {
 			} else if (action.equals("/articleForm.do")) {
 				
 				nextPage="/board04/articleForm.jsp";
+				
 			} else if (action.equals("/addArticle.do")) {
 				
 				int articleNO = 0;
@@ -124,7 +124,9 @@ public class BoardController extends HttpServlet {
 				request.setAttribute("article", articleVO);
 				nextPage="/board04/viewArticle.jsp";
 			}
-				
+			
+			RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
+			dispatch.forward(request, response);
 
 		} catch (Exception e) {
 			e.printStackTrace();
