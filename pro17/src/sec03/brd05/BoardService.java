@@ -2,33 +2,29 @@ package sec03.brd05;
 
 import java.util.List;
 
-
 public class BoardService {
-
-	BoardDAO dao;
+	BoardDAO boardDAO;
 
 	public BoardService() {
-		
-		dao = new BoardDAO();
+		boardDAO = new BoardDAO();
 	}
-	
+
 	public List<ArticleVO> listArticles() {
-		
-		List<ArticleVO> articlesList = dao.selectAllArticles();
-		
+		List<ArticleVO> articlesList = boardDAO.selectAllArticles();
 		return articlesList;
 	}
-	
-	public int addArticle(ArticleVO articleVO) {
-		
-		return dao.insertNewArticle(articleVO);	
+
+	public int addArticle(ArticleVO article) {
+		return boardDAO.insertNewArticle(article);
 	}
-	
-	public ArticleVO viewArticle(int aritcleNO) {
-		
+
+	public ArticleVO viewArticle(int articleNO) {
 		ArticleVO article = null;
-		article = dao.selectArticle(aritcleNO);
+		article = boardDAO.selectArticle(articleNO);
 		return article;
 	}
-	
+
+	public void modArticle(ArticleVO article) {
+		boardDAO.updateArticle(article);
+	}
 }

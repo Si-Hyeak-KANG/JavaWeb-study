@@ -83,9 +83,9 @@ public class ArticleVO {
 		try {
 		
 			if (imageFileName != null && imageFileName.length() != 0) {
-			this.imageFileName = URLEncoder.encode(imageFileName,"UTF-8");
+				this.imageFileName = URLEncoder.encode(imageFileName,"UTF-8");
 			}
-			
+			this.imageFileName = imageFileName;
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
