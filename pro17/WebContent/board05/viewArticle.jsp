@@ -52,7 +52,6 @@
 		form.appendChild(articleNOInput);
 		document.body.appendChild(form);
 		form.submit();
-		
 	}
 </script>
 </head>
