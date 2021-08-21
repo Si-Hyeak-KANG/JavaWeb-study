@@ -63,6 +63,7 @@ public class BoardController extends HttpServlet {
 		PrintWriter pw = response.getWriter();
 		String action = request.getPathInfo();
 		System.out.println("action: " + action);
+		
 		try {
 			List<ArticleVO> articlesList = new ArrayList<ArticleVO>();
 			
@@ -72,17 +73,17 @@ public class BoardController extends HttpServlet {
 				request.setAttribute("articlesList",articlesList);
 				nextPage = "/board05/listArticles.jsp";
 				
-			} else if (action.equals("/board/listArticles.do")) {
+			} else if (action.equals("/listArticles.do")) {
 				
 				articlesList = boardService.listArticles();
 				request.setAttribute("articlesList",articlesList);
 				nextPage = "/board05/listArticles.jsp";
 						
-			} else if (action.equals("/board/articleForm.do")) {
+			} else if (action.equals("/articleForm.do")) {
 				
-				nextPage = "/board05/articleFomr.jsp";
+				nextPage = "/board05/articleForm.jsp";
 				
-			} else if (action.equals("/board/addArticle.do")) {
+			} else if (action.equals("/addArticle.do")) {
 				
 				int articleNO = 0;
 				Map<String,String> articleMap = upload(request,response);
@@ -92,7 +93,7 @@ public class BoardController extends HttpServlet {
 				String imageFileName = articleMap.get("imageFileName");
 				
 				articleVO.setParentNO(0);
-				articleVO.setId("kange");
+				articleVO.setId("kang");
 				articleVO.setTitle(title);
 				articleVO.setContent(content);
 				articleVO.setImageFileName(imageFileName);
@@ -107,7 +108,7 @@ public class BoardController extends HttpServlet {
 				}
 				
 				pw.println("<script>"
-						+ " alert('새글을 추가했습니다.')"
+						+ " alert('새글을 추가했습니다.');"
 						+ " location.href='"
 						+ request.getContextPath()
 						+ "/board/listArticles.do';"
@@ -116,14 +117,14 @@ public class BoardController extends HttpServlet {
 				
 				return;
 				
-			} else if (action.equals("/board/viewArticle.do")) {
+			} else if (action.equals("/viewArticle.do")) {
 				
 				String articleNO = request.getParameter("articleNO");
 				articleVO = boardService.viewArticle(Integer.parseInt(articleNO));
 				request.setAttribute("article", articleVO);
 				nextPage="/board05/viewArticle.jsp";
 				
-			} else if (action.equals("/board/modArticle.do")) {
+			} else if (action.equals("/modArticle.do")) {
 				
 				Map<String,String> articleMap = upload(request,response);
 				int articleNO = Integer.parseInt(articleMap.get("articleNO"));
@@ -162,7 +163,7 @@ public class BoardController extends HttpServlet {
 				
 				return;
 				
-			} else if (action.equals("/board/removeArticle.do")) {
+			} else if (action.equals("/removeArticle.do")) {
 				
 				int articleNO = Integer.parseInt(request.getParameter("articleNO"));
 				List<Integer> articleNOList = boardService.removeArticle(articleNO);

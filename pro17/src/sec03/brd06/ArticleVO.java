@@ -118,8 +118,8 @@ public class ArticleVO {
 		return writeDate;
 	}
 
-
 	public void setWriteDate(Date writeDate) {
+		
 		this.writeDate = writeDate;
 	}
 	

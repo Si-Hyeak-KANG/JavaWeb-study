@@ -4,7 +4,7 @@
     %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<c:set var="contextPath" value="${pageContext.request.contextPath }" />
 <%
 	request.setCharacterEncoding("utf-8");
 %>
@@ -12,7 +12,7 @@
 <html>
 <head>
 <style>
-	.cls {
+	.cls1 {
 		text-decoration:none;
 	}
 	.cls2 {
@@ -71,8 +71,8 @@
 			</c:when>
 		</c:choose>
 	</table>
-	<a class="c1s1" href="${contextPath}/board/articleForm.do">
-		<p calss="c1s2">글쓰기</p>
+	<a class="cls1" href="${contextPath}/board/articleForm.do">
+		<p class="cls2">글쓰기</p>
 	</a>
 </body>
 </html>

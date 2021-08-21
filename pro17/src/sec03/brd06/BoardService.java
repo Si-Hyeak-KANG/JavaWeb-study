@@ -4,9 +4,12 @@ import java.util.List;
 
 public class BoardService {
 	
-	BoardDAO boardDAO();
+	BoardDAO boardDAO;
 	
-	public List<ArticleVO> listArticls() {
+	public BoardService() {
+		boardDAO = new BoardDAO();
+	}
+	public List<ArticleVO> listArticles() {
 		
 		List<ArticleVO> articlesList = boardDAO.selectAllArticles();
 		return articlesList;
@@ -14,7 +17,7 @@ public class BoardService {
 	
 	public int addArticle(ArticleVO articleVO) {
 		
-		return boardDAO.insertNewArticle();
+		return boardDAO.insertNewArticle(articleVO);
 		
 	}
 	

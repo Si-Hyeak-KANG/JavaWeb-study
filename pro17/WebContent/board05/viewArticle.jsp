@@ -110,7 +110,7 @@
 					등록일자
 				</td>
 				<td>
-					<input type="text" value="<fmt:formate value="${article.writeDate}" />" disabled />
+					<input type="text" value="<fmt:formatDate value="${article.writeDate}" />" disabled />
 				</td>
 			</tr>
 			
