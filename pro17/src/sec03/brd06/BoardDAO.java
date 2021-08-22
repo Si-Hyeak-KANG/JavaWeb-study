@@ -136,19 +136,16 @@ public class BoardDAO {
 	}
 	
 	public ArticleVO selectArticle(int articleNO) {
-		
 		ArticleVO article  = new ArticleVO();
-		
 		try {
-			
 			conn = dataFactory.getConnection();
-			String query = "select articleNO,parentNO,title,content, NVL(imageFileName, 'null') as imageFileName, id, writeDate"
+			String query = "select articleNO, parentNO, title, content, NVL(imageFileName,'null') as imageFileName, id, writeDate"
 						+ " from t_board"
 						+ " where articleNO=?";
 			System.out.println(query);
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, articleNO);
-			ResultSet rs = pstmt.executeQuery(query);
+			ResultSet rs = pstmt.executeQuery();
 			rs.next();
 			int _articleNO = rs.getInt("articleNO");
 			int parentNO = rs.getInt("parentNO");
@@ -169,7 +166,6 @@ public class BoardDAO {
 			article.setImageFileName(imageFileName);
 			article.setId(id);
 			article.setWriteDate(writeDate);
-			
 			rs.close();
 			pstmt.close();
 			conn.close();
