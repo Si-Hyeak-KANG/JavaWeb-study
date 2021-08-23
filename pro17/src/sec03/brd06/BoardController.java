@@ -154,10 +154,10 @@ public class BoardController extends HttpServlet {
 				}
 				
 				pw.println("<script>"
-						+ " alert('글을 수정했습니다.')"
+						+ " alert('글을 수정했습니다.');"
 						+ " location.href('"
 						+ request.getContextPath()
-						+ "/board/listArticles.do';"
+						+ "/board/listArticles.do');"
 						+ "</script>"
 						);
 				
