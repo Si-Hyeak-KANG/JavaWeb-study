@@ -189,7 +189,7 @@ public class BoardDAO {
 			if (imageFileName != null && imageFileName.length() != 0) {
 				query += ",imageFileName=?";
 			}
-			query += "where articleNO=?";
+			query += " where articleNO=?";
 			System.out.println(query);
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, title);
@@ -214,8 +214,8 @@ public class BoardDAO {
 		
 		try {
 			conn = dataFactory.getConnection();
-			String query = "delete form t_board";
-			query += " WHERE articleNO in(";
+			String query = "delete from t_board";
+			query += " WHERE articleNO in (";
 			query += " SELECT articleNO FROM t_board ";
 			query += " START WITH articleNO =?";
 			query += " CONNECT BY PRIOR articleNO=parentNO )";
