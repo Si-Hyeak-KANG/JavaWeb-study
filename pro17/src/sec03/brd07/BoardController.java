@@ -1,4 +1,4 @@
-package sec03.brd06;
+package sec03.brd07;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +25,7 @@ import org.apache.commons.io.FileUtils;
 /**
  * Servlet implementation class BoardController
  */
-//@WebServlet(name = "BoardController6", urlPatterns = { "/board/*" })
+@WebServlet(name = "BoardController7", urlPatterns = { "/board/*" })
 public class BoardController extends HttpServlet {
 	private static String ARTICLE_IMAGE_REPO = "C:\\article_image";
 	BoardService boardService;
