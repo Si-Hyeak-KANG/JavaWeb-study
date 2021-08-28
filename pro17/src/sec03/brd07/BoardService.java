@@ -15,9 +15,9 @@ public class BoardService {
 		return articlesList;
 	}
 	
-	public int addArticle(ArticleVO articleVO) {
+	public int addArticle(ArticleVO article) {
 		
-		return boardDAO.insertNewArticle(articleVO);
+		return boardDAO.insertNewArticle(article);
 		
 	}
 	
@@ -36,7 +36,11 @@ public class BoardService {
 		
 		List<Integer> articleNOList = boardDAO.selectRemovedArticles(articleNO);
 		boardDAO.deleteArticle(articleNO);
-		return articleNOList
-;	}
+		return articleNOList;	
+	}
+	
+	public int addReply(ArticleVO article) {
+		return boardDAO.insertNewArticle(article);
+	}
 	
 }

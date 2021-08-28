@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -59,6 +60,7 @@ public class BoardController extends HttpServlet {
 		String nextPage = "";
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
+		HttpSession session;
 		String action = request.getPathInfo();
 		System.out.println("action:" + action);
 		try {
@@ -66,13 +68,13 @@ public class BoardController extends HttpServlet {
 			if (action == null) {
 				articlesList = boardService.listArticles();
 				request.setAttribute("articlesList", articlesList);
-				nextPage = "/board05/listArticles.jsp";
+				nextPage = "/board06/listArticles.jsp";
 			} else if (action.equals("/listArticles.do")) {
 				articlesList = boardService.listArticles();
 				request.setAttribute("articlesList", articlesList);
-				nextPage = "/board05/listArticles.jsp";
+				nextPage = "/board06/listArticles.jsp";
 			} else if (action.equals("/articleForm.do")) {
-				nextPage = "/board05/articleForm.jsp";
+				nextPage = "/board06/articleForm.jsp";
 			} else if (action.equals("/addArticle.do")) {
 				int articleNO = 0;
 				Map<String, String> articleMap = upload(request, response);
@@ -81,7 +83,7 @@ public class BoardController extends HttpServlet {
 				String imageFileName = articleMap.get("imageFileName");
 
 				articleVO.setParentNO(0);
-				articleVO.setId("hong");
+				articleVO.setId("kang");
 				articleVO.setTitle(title);
 				articleVO.setContent(content);
 				articleVO.setImageFileName(imageFileName);
@@ -101,7 +103,7 @@ public class BoardController extends HttpServlet {
 				String articleNO = request.getParameter("articleNO");
 				articleVO = boardService.viewArticle(Integer.parseInt(articleNO));
 				request.setAttribute("article", articleVO);
-				nextPage = "/board05/viewArticle.jsp";
+				nextPage = "/board06/viewArticle.jsp";
 			} else if (action.equals("/modArticle.do")) {
 				Map<String, String> articleMap = upload(request, response);
 				int articleNO = Integer.parseInt(articleMap.get("articleNO"));
@@ -144,8 +146,44 @@ public class BoardController extends HttpServlet {
 						+ "/board/listArticles.do';" + "</script>");
 				return;
 			
-			}else {
-				nextPage = "/board05/listArticles.jsp";
+			} else if (action.equals("/replyForm.do")) {
+				
+				int parentNO = Integer.parseInt(request.getParameter("parentNO"));
+				session = request.getSession();
+				session.setAttribute("parentNO",parentNO);
+				nextPage = "/board06/replyForm.jsp";
+				
+			} else if (action.equals("/addReply.do")) {
+				
+				session = request.getSession();
+				int parentNO = (Integer) session.getAttribute("parentNO");
+				session.removeAttribute("parentNO");
+				Map<String,String> articleMap = upload(request, response);
+				String title = articleMap.get("title");
+				String content = articleMap.get("content");
+				String imageFileName = articleMap.get("imageFileName");
+				articleVO.setParentNO(parentNO);
+				articleVO.setId("lee");
+				articleVO.setTitle(title);
+				articleVO.setContent(content);
+				articleVO.setImageFileName(imageFileName);
+				int articleNO = boardService.addReply(articleVO);
+				if (imageFileName != null && imageFileName.length() != 0) {
+					
+					File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + imageFileName);
+					File destDir = new File(ARTICLE_IMAGE_REPO + "\\" + articleNO);
+					destDir.mkdirs();
+					FileUtils.moveFileToDirectory(srcFile, destDir, true);
+				}
+				
+				PrintWriter pw = response.getWriter();
+				pw.print("<script>" + " alert('답글을 추가했습니다.');" + " location.href='" + request.getContextPath()
+							+ "/board/viewArticle.do?articleNO="+articleNO+"';" + "</script>");
+				
+				return;
+			}
+			else {
+				nextPage = "/board06/listArticles.jsp";
 			}
 
 			RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
