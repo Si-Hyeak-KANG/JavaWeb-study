@@ -53,6 +53,32 @@
 		document.body.appendChild(form);
 		form.submit();
 	}
+	
+	function fn_reply_form(url, parentNO) {
+		
+		var form = document.createElement("form");
+		form.setAttribute("method","post");
+		form.setAttribute("action", url);
+		
+		var parentNOInput = document.createElement("input");
+		parentNOInput.setAttribute("type","hidden");
+		parentNOInput.setAttribute("name","parentNO");
+		parentNOInput.setAttribute("value",parentNO);
+		
+		form.appendChild(parentNOInput);
+		document.body.appendChild(form);
+		form.submit();
+	}
+	
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				$('#preview').attr('src',e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
 </script>
 </head>
 <body>

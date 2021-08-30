@@ -158,7 +158,7 @@ public class BoardController extends HttpServlet {
 				session = request.getSession();
 				int parentNO = (Integer) session.getAttribute("parentNO");
 				session.removeAttribute("parentNO");
-				Map<String,String> articleMap = upload(request, response);
+				Map<String, String> articleMap = upload(request, response);
 				String title = articleMap.get("title");
 				String content = articleMap.get("content");
 				String imageFileName = articleMap.get("imageFileName");
@@ -169,17 +169,14 @@ public class BoardController extends HttpServlet {
 				articleVO.setImageFileName(imageFileName);
 				int articleNO = boardService.addReply(articleVO);
 				if (imageFileName != null && imageFileName.length() != 0) {
-					
 					File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + imageFileName);
 					File destDir = new File(ARTICLE_IMAGE_REPO + "\\" + articleNO);
 					destDir.mkdirs();
 					FileUtils.moveFileToDirectory(srcFile, destDir, true);
 				}
-				
 				PrintWriter pw = response.getWriter();
-				pw.print("<script>" + " alert('답글을 추가했습니다.');" + " location.href='" + request.getContextPath()
-							+ "/board/viewArticle.do?articleNO="+articleNO+"';" + "</script>");
-				
+				pw.print("<script>" + "  alert('답글을 추가했습니다.');" + " location.href='" + request.getContextPath()
+						+ "/board/viewArticle.do?articleNO="+articleNO+"';" + "</script>");
 				return;
 			}
 			else {
