@@ -20,7 +20,7 @@
 			reader.onload = function (e) {
 				$('#preview').attr('src',e.target.result);
 			}
-			reader.readAsDataURL(input.file[0]);
+			reader.readAsDataURL(input.files[0]);
 		}
 	}
 	function backToList(obj) {
