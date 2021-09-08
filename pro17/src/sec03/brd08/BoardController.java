@@ -23,9 +23,6 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FileUtils;
 
-import sec03.brd05.ArticleVO;
-
-
 
 /**
  * Servlet implementation class BoardController
@@ -88,7 +85,8 @@ public class BoardController extends HttpServlet {
 				articlesMap.put("pageNum", pageNum);
 				request.setAttribute("articlesMap",articlesMap);
 				nextPage = "/board07/listArticles.jsp";
-			} else if (action.equals("/listArticles.do"))) {
+				
+			} else if (action.equals("/listArticles.do")) {
 				String _section = request.getParameter("section");
 				String _pageNum = request.getParameter("pageNum");
 				
@@ -118,7 +116,7 @@ public class BoardController extends HttpServlet {
 				articleVO.setTitle(title);
 				articleVO.setContent(content);
 				articleVO.setImageFileName(imageFileName);
-				articleNO = boardservice.addArticle(articleVO);
+				articleNO = boardService.addArticle(articleVO);
 				
 				if (imageFileName != null && imageFileName.length() != 0) {
 					File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + imageFileName);
