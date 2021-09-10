@@ -9,11 +9,11 @@ public class BoardService {
 	BoardDAO boardDAO;
 	
 	public BoardService() {
-		
+		boardDAO = new BoardDAO();
 	}
 	
-	public Map listArticles(Map<String,Integer> pagingMap) {
-		Map articlesMap = new HashMap();
+	public Map<String, Object> listArticles(Map<String,Integer> pagingMap) {
+		Map<String, Object> articlesMap = new HashMap<String, Object>();
 		List<ArticleVO> articlesList = boardDAO.selectAllArticles(pagingMap);
 		int totArticles = boardDAO.selectTotArticles();
 		articlesMap.put("articlesList", articlesList);
