@@ -66,7 +66,9 @@ public class BoardController extends HttpServlet {
 		System.out.println("action:" + action);
 		try {
 			List<ArticleVO> articlesList = new ArrayList<ArticleVO>();
+			
 			if (action==null){	
+				
 				String _section=request.getParameter("section");
 				String _pageNum=request.getParameter("pageNum");
 				int section = Integer.parseInt(((_section==null)? "1":_section) );
@@ -79,7 +81,9 @@ public class BoardController extends HttpServlet {
 				articlesMap.put("pageNum", pageNum);
 				request.setAttribute("articlesMap", articlesMap);
 				nextPage = "/board07/ listArticles.jsp";
-				}else if(action.equals("/listArticles.do")){  			
+				
+			}else if(action.equals("/listArticles.do")){  	
+					
 				String _section=request.getParameter("section");
 				String _pageNum=request.getParameter("pageNum");
 				int section = Integer.parseInt(((_section==null)? "1":_section) );
@@ -92,6 +96,7 @@ public class BoardController extends HttpServlet {
 				articlesMap.put("pageNum", pageNum);
 				request.setAttribute("articlesMap", articlesMap);
 				nextPage = "/board07/listArticles.jsp";
+				
 			} else if (action.equals("/articleForm.do")) {
 				nextPage = "/board07/articleForm.jsp";
 			} else if (action.equals("/addArticle.do")) {
@@ -100,12 +105,14 @@ public class BoardController extends HttpServlet {
 				String title = articleMap.get("title");
 				String content = articleMap.get("content");
 				String imageFileName = articleMap.get("imageFileName");
-
+				String notice_yn = articleMap.get("notice_yn");
+				
 				articleVO.setParentNO(0);
 				articleVO.setId("kang");
 				articleVO.setTitle(title);
 				articleVO.setContent(content);
 				articleVO.setImageFileName(imageFileName);
+				articleVO.setNotice_yn(notice_yn);
 				articleNO = boardService.addArticle(articleVO);
 				if (imageFileName != null && imageFileName.length() != 0) {
 					File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + imageFileName);
