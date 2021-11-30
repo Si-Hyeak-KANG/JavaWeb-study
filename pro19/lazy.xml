@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+	<!-- 설정 파일을 읽고, 바로 메모리에 First 클래스 빈을 생성-->
+	<bean id="firstBean" class="com.spring.ex04.First" lazy-init="false" />
+	
+	<!-- 설정 파일을 읽고, 요청 시에 빈을 메모리에 생성-->
+	<bean id="secondBean" class="com.spring.ex04.Second" lazy-init="true" />
+	
+	<!-- lazy-init이 false와 동일 -->
+	<bean id="thirdBean" class="com.spring.ex04.Third" lazy-init="default"/>
+</beans>
