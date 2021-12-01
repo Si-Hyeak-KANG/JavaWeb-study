@@ -10,4 +10,5 @@
 	
 	<!-- lazy-init이 false와 동일 -->
 	<bean id="thirdBean" class="com.spring.ex04.Third" lazy-init="default"/>
+	
 </beans>
