@@ -8,7 +8,7 @@ public class CalcTest {
 	public static void main(String[] args) {
 
 		ApplicationContext context = new ClassPathXmlApplicationContext("AOPTest.xml");
-		Calculator cal = (Calculator) context.getBean("proxyCal");
+		Calculator cal = (Calculator) context.getBean("proxyCal"); // id가 proxyCal인 빈에 접근함.
 		cal.add(100, 20);
 		System.out.println();
 		cal.subtract(100, 20);
